@@ -1,3 +1,74 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: sstienface
+ * Date: 04/12/2018
+ * Time: 11:25
+ */
+
+// Premiere ligne
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "reunion_island";
+
+$conn = new mysqli($servername, $username, $password);
+
+if ($conn->connect_error)
+{ die ("Connection failed: " . $conn->connect_error); }
+
+else {
+    $conn->select_db($dbname); }
+
+
+
+
+
+
+
+function insert()
+{
+    GLOBAL $conn;
+
+    $name = (isset($_POST['name']) ? $_POST['name'] : null);
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+
+    $difficulty = (isset($_POST['difficulty'])? $_POST['difficulty']:null);
+    $difficulty = filter_var($difficulty, FILTER_SANITIZE_STRING);
+
+    $distance = (isset($_POST['distance'])?$_POST['distance']:null);
+    $distance = filter_var($distance, FILTER_SANITIZE_STRING);
+
+    $duration = (isset($_POST['duration'])? $_POST['duration']:null);
+    $duration = filter_var($duration, FILTER_SANITIZE_STRING);
+
+    $height_difference = (isset($_POST['height_difference'])? $_POST['height_difference']:null);
+    $height_difference = filter_var($height_difference, FILTER_SANITIZE_NUMBER_INT);
+
+
+    $stmt = $conn->prepare("INSERT INTO `hiking` (`name`, `difficulty`, `distance`, `duration`, `height_difference`)
+                              VALUES (?, ?, ?, ?, ?)");
+
+    $stmt->bind_param("ssisi", $name,$difficulty,$distance,$duration,$height_difference );
+    $stmt->execute();
+    $stmt->close();
+
+    if($name && $difficulty && $distance && $duration && $height_difference == true ){
+        echo "Randonnée ajouté avec succés";
+    }
+}
+insert();
+
+
+
+
+
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,9 +77,10 @@
 	<link rel="stylesheet" href="css/basics.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
-	<a href="/php-pdo/read.php">Liste des données</a>
+	<a href="read.php">Liste des données</a>
 	<h1>Ajouter</h1>
-	<form action="" method="post">
+
+	<form class="form-style-9" action="" method="post">
 		<div>
 			<label for="name">Name</label>
 			<input type="text" name="name" value="">
@@ -17,11 +89,11 @@
 		<div>
 			<label for="difficulty">Difficulté</label>
 			<select name="difficulty">
-				<option value="très facile">Très facile</option>
+				<option value="tres facile">Tres facile</option>
 				<option value="facile">Facile</option>
 				<option value="moyen">Moyen</option>
 				<option value="difficile">Difficile</option>
-				<option value="très difficile">Très difficile</option>
+				<option value="tres difficile">Tres difficile</option>
 			</select>
 		</div>
 		
@@ -31,13 +103,14 @@
 		</div>
 		<div>
 			<label for="duration">Durée</label>
-			<input type="duration" name="duration" value="">
+			<input type="text" name="duration" value="">
 		</div>
 		<div>
 			<label for="height_difference">Dénivelé</label>
 			<input type="text" name="height_difference" value="">
 		</div>
-		<button type="submit" name="button">Envoyer</button>
+		<button type="submit" name="button">Ajouter randonnée</button>
 	</form>
+
 </body>
 </html>
