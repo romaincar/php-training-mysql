@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /**** Supprimer une randonnée ****/
 $servername = "localhost";
 $username = "root";

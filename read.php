@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sstienface
- * Date: 04/12/2018
- * Time: 11:25
- */
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -32,7 +27,8 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="css/basics.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
-  <a href="create.php">Ajouter une randonnée</a>
+  <a href="create.php"><img src="rando.png" height="40" width="40" alt="ajouter randonner"></a>
+  <a href="logout.php"><img src="decoo.png" height="40" width="40" alt="Déconnexion"></a>
     <h1>Liste des randonnées</h1>
     <table>
       <!-- Afficher la liste des randonnées -->

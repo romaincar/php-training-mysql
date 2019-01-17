@@ -1,11 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sstienface
- * Date: 04/12/2018
- * Time: 11:25
- */
 
+session_start();
 // Premiere ligne
 $servername = "localhost";
 $username = "root";
@@ -19,6 +14,10 @@ if ($conn->connect_error)
 
 else {
     $conn->select_db($dbname); }
+
+
+
+
 
 
 
@@ -77,7 +76,8 @@ insert();
 	<link rel="stylesheet" href="css/basics.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
-	<a href="read.php">Liste des données</a>
+	<a href="read.php"><img src="tableauR.png" height="40" width="40" alt="Liste des randonnées"></a>
+    <a href="logout.php"><img src="decoo.png" height="40" width="40" alt="Déconnexion"></a>
 	<h1>Ajouter</h1>
 
 	<form class="form-style-9" action="" method="post">
